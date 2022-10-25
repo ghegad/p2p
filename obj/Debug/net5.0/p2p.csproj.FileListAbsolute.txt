@@ -1,0 +1,16 @@
+C:\Users\hacke\Desktop\myproject\p2p\obj\Debug\net5.0\p2p.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hacke\Desktop\myproject\p2p\obj\Debug\net5.0\p2p.AssemblyInfoInputs.cache
+C:\Users\hacke\Desktop\myproject\p2p\obj\Debug\net5.0\p2p.AssemblyInfo.cs
+C:\Users\hacke\Desktop\myproject\p2p\obj\Debug\net5.0\p2p.csproj.CoreCompileInputs.cache
+C:\Users\hacke\Desktop\myproject\p2p\obj\Debug\net5.0\p2p.csproj.AssemblyReference.cache
+C:\Users\hacke\Desktop\myproject\p2p\bin\Debug\net5.0\p2p.exe
+C:\Users\hacke\Desktop\myproject\p2p\bin\Debug\net5.0\p2p.deps.json
+C:\Users\hacke\Desktop\myproject\p2p\bin\Debug\net5.0\p2p.runtimeconfig.json
+C:\Users\hacke\Desktop\myproject\p2p\bin\Debug\net5.0\p2p.runtimeconfig.dev.json
+C:\Users\hacke\Desktop\myproject\p2p\bin\Debug\net5.0\p2p.dll
+C:\Users\hacke\Desktop\myproject\p2p\bin\Debug\net5.0\p2p.pdb
+C:\Users\hacke\Desktop\myproject\p2p\obj\Debug\net5.0\p2p.dll
+C:\Users\hacke\Desktop\myproject\p2p\obj\Debug\net5.0\refint\p2p.dll
+C:\Users\hacke\Desktop\myproject\p2p\obj\Debug\net5.0\p2p.pdb
+C:\Users\hacke\Desktop\myproject\p2p\obj\Debug\net5.0\p2p.genruntimeconfig.cache
+C:\Users\hacke\Desktop\myproject\p2p\obj\Debug\net5.0\ref\p2p.dll

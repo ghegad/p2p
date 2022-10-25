@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "3/XqABxGYnP24tNpusAgJHfUSYT+wo9Km8GSATzxs7jNyyVI9Lv8u9Da8xp7HWsd8BjT7TEKRkOlxVvYzlxBqg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\hacke\\Desktop\\myproject\\p2p\\p2p.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\hacke\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.17\\microsoft.netcore.app.host.win-x64.5.0.17.nupkg.sha512"
+  ],
+  "logs": []
+}
