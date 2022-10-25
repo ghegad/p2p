@@ -8,6 +8,9 @@ using System.Collections;
 
 namespace p2p
 {
+    /// <summary>
+    /// Class <c>Client_Info</c> models with the Client info.
+    /// </summary>
     public class Client_Info
     {
         public string Name;
@@ -20,13 +23,17 @@ namespace p2p
     }
     public class Client
     {
-
+        // list of clients
         public ArrayList clients_list = new ArrayList();
-
+        // the client object
         private TcpClient client;
+        // the rsa object with rsa keys and functions
         private rsa RSA;
+        // the ip address of server
         private string ip;
+        // the port of server
         private int port;
+        // the name of client
         private string name;
 
         //// Begin Event
@@ -51,25 +58,34 @@ namespace p2p
         {
             OnErrorCompleted?.Invoke(error);
         }
+        /// <summary>
+        /// method <c>OnMessage</c> recive the message.
+        /// </summary>
         protected virtual void OnMessage(string message)
         {
             try
             {
+                // convert message to json Message format
                 Message msg = JsonSerializer.Deserialize<Message>(message);
+                // if message is from server
                 if (msg.from == "server")
                 {
+                    // if a new client has connected to server
                     if (msg.message == "newclient")
                     {
+                        // if the new client have infos
                         if (msg.name != this.name && msg.key != this.RSA.publickey)
                         {
                             Client_Info ci = new Client_Info(msg.name, msg.key);
+                            // add client to clist of clients 
                             if (!clients_list.Contains(ci))
                                 clients_list.Add(ci);
                         }
-                    }
+                    }// if a client is disconnected to server
                     else if (msg.message == "remouveclient")
                     {
                         Client_Info ci = new Client_Info(msg.name, msg.key);
+                        // remouve client from clist of clients 
                         if (clients_list.Contains(ci))
                             clients_list.Remove(ci);
                     }
@@ -77,14 +93,16 @@ namespace p2p
                     {
                         OnMessageCompleted?.Invoke(msg.from, msg.message);
                     }
-                }
+                }// if message is from client
                 else
                 {
                     string text = "";
                     string key = "";
                     try
                     {
+                        //decrypt the AES256 key
                         key = rsa.Decryption(msg.key, RSA.privatekey);
+                        //decrypt the message with the AES 256 key
                         text = rsa.DecryptText(msg.message, key);
                     }
                     catch
@@ -97,10 +115,10 @@ namespace p2p
             }
             catch { return; }
         }
-
         //// End Event
-
-
+        /// <summary>
+        /// constructor <c>Client</c> implement the Client.
+        /// </summary>
         public Client(string server, int port, string name)
         {
             this.ip = server;
@@ -111,7 +129,9 @@ namespace p2p
                 this.name = new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 5).Select(s => s[new Random().Next(s.Length)]).ToArray());
             RSA = new rsa();
         }
-
+        /// <summary>
+        /// method <c>Start</c> to start the Client.
+        /// </summary>
         public void Start()
         {
             _ = Task.Run(() =>
@@ -121,8 +141,11 @@ namespace p2p
                     this.client = new TcpClient(this.ip, this.port);
                     this.client.ReceiveBufferSize = 8192;
                     OnConnected();
+                    // send the client infos
                     Sendparams();
+                    // Listener if client is connected
                     Listener();
+                    // Listener of message
                     Listenermsg();
                 }
                 catch (Exception e)
@@ -131,7 +154,9 @@ namespace p2p
                 }
             });
         }
-
+        /// <summary>
+        /// method <c>Sendparams</c> send the client info.
+        /// </summary>
         protected void Sendparams()
         {
             Message new_msg = new Message();
@@ -143,7 +168,9 @@ namespace p2p
             byte[] namebyte = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(new_msg));
             stream.Write(namebyte, 0, namebyte.Length);
         }
-
+        /// <summary>
+        /// method <c>send</c> send a message format Message.
+        /// </summary>
         public void send(string name_client, string message)
         {
             string key = new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 8).Select(s => s[new Random().Next(s.Length)]).ToArray());
@@ -165,14 +192,18 @@ namespace p2p
             byte[] list = Encoding.UTF8.GetBytes(JsonSerializer.Serialize<Message>(new_msg));
             stream.Write(list, 0, list.Length);
         }
-
+        /// <summary>
+        /// method <c>send_message</c> send a message format string.
+        /// </summary>
         private void send_message(string message)
         {
             NetworkStream stream = client.GetStream();
             byte[] list = Encoding.UTF8.GetBytes(message);
             stream.Write(list, 0, list.Length);
         }
-
+        /// <summary>
+        /// method <c>Listener</c> Listener client status.
+        /// </summary>
         protected void Listener()
         {
             _ = Task.Run(async () =>
@@ -193,8 +224,9 @@ namespace p2p
                 }
             });
         }
-
-
+        /// <summary>
+        /// method <c>Listenermsg</c> Listener of message.
+        /// </summary>
         public void Listenermsg()
         {
             NetworkStream stream = client.GetStream();
