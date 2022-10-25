@@ -41,7 +41,6 @@ namespace p2p
         public p2p_client(string name)
         {
             Console.WriteLine("Client");
-            //new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 5).Select(s => s[new Random().Next(s.Length)]).ToArray())
             client = new Client("127.0.0.1",1548,name);
             client.OnConnectedCompleted += Client_OnConnectedCompleted;
             client.OnDisconnectedCompleted += Client_OnDisconnectedCompleted;
